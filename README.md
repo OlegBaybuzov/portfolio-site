@@ -99,6 +99,60 @@ screenshot. A card is generated automatically \u2014 no HTML to touch.
 \u2014 the glow and cursor-spotlight colors are derived from it automatically
 in `main.js`.
 
+## Contact form
+
+The form works out of the box with **zero setup**: submissions open the
+visitor's own email app via a `mailto:` link, addressed to
+`settings.json \u2192 contactEmail` (currently `olegfororders02@gmail.com`),
+pre-filled with their name, email, and message. They just have to hit send
+in their mail client.
+
+To make it send **silently and automatically** instead (no click required
+from the visitor), connect a free form service:
+
+1. Sign up at [formspree.io](https://formspree.io) (or Web3Forms,
+   or any service that accepts a plain `POST` with form fields).
+2. Create a form and set its destination to `olegfororders02@gmail.com`
+   \u2014 Formspree will send a one-time confirmation link to that address;
+   click it to activate the form.
+3. Copy the endpoint URL it gives you (looks like
+   `https://formspree.io/f/xxxxxxxx`).
+4. Paste it into `content/settings.json \u2192 contactFormEndpoint`.
+
+That's it \u2014 no code changes. If the endpoint ever fails (wrong URL,
+service down), the form automatically falls back to the `mailto:` link
+rather than silently failing.
+
+A hidden honeypot field (`_gotcha`) quietly drops obvious bot submissions
+without bothering real visitors.
+
+## Admin access
+
+`/admin` is protected by a password gate (`admin/admin.js`). This is a
+**client-side check**, which means it deters casual visitors but not a
+determined one \u2014 anyone can view the JS and see the password hash. There
+is no sensitive data behind it (only the same content that's already
+public in `/content/*.json`), so this is a reasonable, honest trade-off
+for a static site with no backend.
+
+**Change the default password before deploying:**
+
+1. Open `admin/hash-tool.html` in a browser.
+2. Type your new password, copy the SHA-256 hash it prints.
+3. Paste it into `admin/admin.js`, replacing the value of
+   `ADMIN_PASSWORD_HASH`.
+
+The default password is `changeme123` \u2014 change it.
+
+Login state is stored in `sessionStorage`, so it clears when the browser
+tab closes; use **Log out** in the admin bar to clear it manually.
+
+If you ever need real, server-side access control (for example if the
+admin starts touching anything more sensitive than portfolio copy), put
+`/admin` behind your hosting provider's access control instead \u2014
+Cloudflare Access, Netlify Identity, or similar \u2014 since that runs outside
+the browser and can't be bypassed by reading the JS.
+
 ## Deployment
 
 The whole thing is static files. Push the folder as-is to GitHub Pages,
@@ -109,9 +163,6 @@ flow, just make sure the downloaded JSON files replace the ones in
 
 ## Notes
 
-- The contact form is front-end only (it shows a success state locally).
-  Wire it to a real service (Formspree, a serverless function, etc.) when
-  you're ready to receive submissions \u2014 there's no backend here by design.
 - Fonts and animation libraries (GSAP, ScrollTrigger, Lenis) load from
   public CDNs; if you need a fully offline build, download and self-host
   them under `/assets`.

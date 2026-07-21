@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generate admin password hash</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+  <div class="admin-gate" style="position:static; min-height:100vh;">
+    <div class="admin-gate__box" style="max-width:440px;">
+      <span class="admin-gate__mark">OB</span>
+      <h1>New admin password</h1>
+      <p>Type a new password below, copy the hash it produces, and paste it
+         as <code>ADMIN_PASSWORD_HASH</code> near the top of <code>admin.js</code>.
+         Nothing here is sent anywhere \u2014 the hash is computed in your browser.</p>
+      <input type="text" class="field-input" id="pw" placeholder="New password" autocomplete="off">
+      <button type="button" class="btn btn--primary btn--full" id="go">Generate hash</button>
+      <textarea class="field-textarea" id="out" readonly placeholder="Hash will appear here" style="font-family:var(--font-mono); font-size:0.8rem;"></textarea>
+    </div>
+  </div>
+
+<script>
+  document.getElementById('go').addEventListener('click', async () => {
+    const pw = document.getElementById('pw').value;
+    const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+    const hex = Array.from(new Uint8Array(buffer)).map((b) => b.toString(16).padStart(2, '0')).join('');
+    document.getElementById('out').value = hex;
+  });
+</script>
+</body>
+</html>

@@ -200,3 +200,43 @@ body.admin {
   .admin-tabs { flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--border); }
   .admin-panel { padding: var(--sp-5); }
 }
+
+/* Password gate */
+.admin-gate {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(10, 10, 11, 0.92);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--sp-5);
+}
+.admin-gate__box {
+  width: 100%; max-width: 360px;
+  display: flex; flex-direction: column; gap: var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-7) var(--sp-6);
+  text-align: center;
+}
+.admin-gate__mark {
+  align-self: center;
+  font-family: var(--font-mono);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: 2px 10px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.admin-gate__box h1 { font-size: 1.3rem; }
+.admin-gate__box p { color: var(--text-muted); font-size: 0.9rem; }
+.admin-gate__error {
+  color: #ff6b6b !important;
+  font-size: 0.8rem;
+  min-height: 1.2em;
+}
+.admin-gate__box.is-shaking { animation: gate-shake 0.4s; }
+@keyframes gate-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}

@@ -11,13 +11,13 @@
 
 /** Turns "focused on {accent}clarity{/accent}." into real markup. */
 function withAccent(line) {
-  return line.replace(/\{accent\}(.*?)\{\/accent\}/g, '<em>$1</em>');
+  return line.replace(/\{accent\}(.*?)\{\/accent\}/g, "<em>$1</em>");
 }
 
 export function nav({ site }) {
   const links = site.nav.links
     .map((l) => `<a href="${l.href}">${l.label}</a>`)
-    .join('');
+    .join("");
   return `
     <a href="#top" class="nav__mark">${site.nav.mark}</a>
     <nav class="nav__links" aria-label="Primary">${links}</nav>
@@ -27,15 +27,18 @@ export function nav({ site }) {
 
 export function hero({ site, settings }) {
   const lines = site.hero.titleLines
-    .map((l) => `<span class="line" data-line><span>${withAccent(l)}</span></span>`)
-    .join('');
+    .map(
+      (l) =>
+        `<span class="line" data-line><span>${withAccent(l)}</span></span>`,
+    )
+    .join("");
 
   const availability = settings.availability
     ? `<div class="badge" data-reveal-item>
          <span class="badge__dot"></span>
          ${site.hero.badgeAvailable}
        </div>`
-    : '';
+    : "";
 
   return `
     <div class="hero__inner">
@@ -69,8 +72,8 @@ export function hero({ site, settings }) {
 export function about({ site }) {
   const paragraphs = site.about.paragraphs
     .map((p) => `<p class="about__text" data-reveal>${p}</p>`)
-    .join('');
-  const values = site.about.values.map((v) => `<li>${v}</li>`).join('');
+    .join("");
+  const values = site.about.values.map((v) => `<li>${v}</li>`).join("");
 
   return `
     <div class="section-inner">
@@ -114,11 +117,11 @@ export function skills({ site, skills }) {
           <span class="skill-card__level">${cat.level}</span>
         </div>
         <ul class="skill-card__list">
-          ${cat.items.map((i) => `<li>${i}</li>`).join('')}
+          ${cat.items.map((i) => `<li>${i}</li>`).join("")}
         </ul>
-      </div>`
+      </div>`,
     )
-    .join('');
+    .join("");
 
   return `
     <div class="section-inner">
@@ -132,10 +135,10 @@ export function skills({ site, skills }) {
 function projectCard(project) {
   const media = project.image
     ? `<img src="${project.image}" alt="${project.title}" loading="lazy">`
-    : `<div class="project-card__placeholder">${project.status || 'Case study'}</div>`;
+    : `<div class="project-card__placeholder">${project.status || "Case study"}</div>`;
 
-  const stack = project.stack.map((s) => `<span>${s}</span>`).join('');
-  const primaryLink = project.demo || project.github || '#work';
+  const stack = project.stack.map((s) => `<span>${s}</span>`).join("");
+  const primaryLink = project.demo || project.github || "#work";
 
   return `
     <article class="project-card" data-reveal>
@@ -153,18 +156,20 @@ function projectCard(project) {
 }
 
 export function work({ site, projects }) {
-  const sorted = [...projects].sort((a, b) => (b.featured === true) - (a.featured === true));
+  const sorted = [...projects].sort(
+    (a, b) => (b.featured === true) - (a.featured === true),
+  );
   return `
     <div class="section-inner">
       <p class="eyebrow" data-reveal>${site.sections.workEyebrow}</p>
       <h2 class="section-title" data-reveal>${site.sections.workTitle}</h2>
-      <div class="work__list">${sorted.map(projectCard).join('')}</div>
+      <div class="work__list">${sorted.map(projectCard).join("")}</div>
     </div>
   `;
 }
 
 export function experience({ site, experience }) {
-  if (!experience.length) return '';
+  if (!experience.length) return "";
   const items = experience
     .map(
       (e) => `
@@ -175,9 +180,9 @@ export function experience({ site, experience }) {
           <span class="timeline-item__org">${e.org}</span>
           <p>${e.description}</p>
         </div>
-      </div>`
+      </div>`,
     )
-    .join('');
+    .join("");
 
   return `
     <div class="section-inner">
@@ -189,16 +194,16 @@ export function experience({ site, experience }) {
 }
 
 export function testimonials({ site, testimonials }) {
-  if (!testimonials.length) return '';
+  if (!testimonials.length) return "";
   const cards = testimonials
     .map(
       (t) => `
       <figure class="testimonial-card" data-reveal>
         <blockquote>\u201c${t.quote}\u201d</blockquote>
-        <figcaption>${t.name}${t.role ? `, ${t.role}` : ''}</figcaption>
-      </figure>`
+        <figcaption>${t.name}${t.role ? `, ${t.role}` : ""}</figcaption>
+      </figure>`,
     )
-    .join('');
+    .join("");
 
   return `
     <div class="section-inner">
@@ -217,6 +222,9 @@ export function contact({ site }) {
       <p class="contact__subtitle" data-reveal>${site.sections.contactSubtitle}</p>
 
       <form class="contact-form" id="contactForm" data-reveal novalidate>
+        <input type="hidden" name="_subject" value="New message from ${site.name}'s portfolio">
+        <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
         <div class="field">
           <input type="text" id="name" name="name" required autocomplete="name" placeholder=" ">
           <label for="name">Your name</label>
@@ -239,7 +247,7 @@ export function contact({ site }) {
             <circle class="success-check__circle" cx="26" cy="26" r="24" fill="none"/>
             <path class="success-check__mark" fill="none" d="M14 27l7 7 16-16"/>
           </svg>
-          <p>Message sent. I'll reply soon.</p>
+          <p id="formSuccessText">Message sent. I'll reply soon.</p>
         </div>
       </form>
     </div>
@@ -249,8 +257,11 @@ export function contact({ site }) {
 export function footer({ site, socials }) {
   const links = socials
     .filter((s) => s.href)
-    .map((s) => `<a href="${s.href}" ${s.href.startsWith('mailto:') ? '' : 'target="_blank" rel="noopener"'}>${s.label}</a>`)
-    .join('');
+    .map(
+      (s) =>
+        `<a href="${s.href}" ${s.href.startsWith("mailto:") ? "" : 'target="_blank" rel="noopener"'}>${s.label}</a>`,
+    )
+    .join("");
 
   return `
     <div class="section-inner footer__inner">

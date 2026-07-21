@@ -17,7 +17,7 @@
     "title": "Monovision Studio",
     "description": "Website for a photo studio",
     "image": "assets/images/monovision.png",
-    "github": "",
+    "github": "https://github.com/OlegBaybuzov/Monovision-studio",
     "demo": "",
     "stack": ["JavaScript", "Git", "HTML", "CSS"],
     "featured": false,
