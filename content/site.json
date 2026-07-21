@@ -1,0 +1,59 @@
+{
+  "name": "Oleg Baibuzov",
+  "role": "Frontend Developer",
+
+  "nav": {
+    "mark": "OB",
+    "links": [
+      { "label": "About", "href": "#about" },
+      { "label": "Skills", "href": "#skills" },
+      { "label": "Work", "href": "#work" },
+      { "label": "Contact", "href": "#contact" }
+    ],
+    "cta": { "label": "Get in touch", "href": "#contact" }
+  },
+
+  "hero": {
+    "badgeAvailable": "Available for remote work",
+    "titleLines": [
+      "Frontend developer,",
+      "focused on {accent}clarity{/accent}."
+    ],
+    "subtitle": "I build fast, minimal interfaces \u2014 the kind that feel obvious in hindsight. Currently based in Kazakhstan, moving to Saint\u00a0Petersburg to study Computer Science.",
+    "primaryCta": { "label": "View projects", "href": "#work" },
+    "secondaryCta": { "label": "Get in touch", "href": "#contact" }
+  },
+
+  "about": {
+    "eyebrow": "About",
+    "title": "A slow, deliberate approach<br>to fast-moving technology.",
+    "paragraphs": [
+      "I'm Oleg \u2014 18, from Kazakhstan, soon studying Computer Science at Saint Petersburg State University. I care about clean code, clear interfaces, and building things that last longer than a trend.",
+      "Frontend is where I started. It won't be where I stop \u2014 I'm currently learning Python and the fundamentals of AI, with the long-term goal of building and launching my own products."
+    ],
+    "values": ["Minimalism", "Continuous learning", "Discipline", "Long-term thinking"]
+  },
+
+  "meridian": {
+    "start": { "coord": "43.25\u00b0N 76.95\u00b0E", "city": "Almaty" },
+    "end": { "coord": "59.93\u00b0N 30.34\u00b0E", "city": "Saint Petersburg" }
+  },
+
+  "sections": {
+    "skillsEyebrow": "Skills",
+    "skillsTitle": "What I work with",
+    "workEyebrow": "Selected work",
+    "workTitle": "Projects",
+    "experienceEyebrow": "Experience",
+    "experienceTitle": "Timeline",
+    "testimonialsEyebrow": "Testimonials",
+    "testimonialsTitle": "What people say",
+    "contactEyebrow": "Contact",
+    "contactTitle": "Let's build something.",
+    "contactSubtitle": "Open to remote roles, freelance projects, and interesting collaborations."
+  },
+
+  "footer": {
+    "tagline": "43.25\u00b0N 76.95\u00b0E \u2014 2026"
+  }
+}

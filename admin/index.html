@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin \u2014 Portfolio Content</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+
+<header class="admin-bar">
+  <div class="admin-bar__brand">
+    <span class="admin-bar__mark">OB</span>
+    <span>Content admin</span>
+  </div>
+  <div class="admin-bar__actions">
+    <span class="admin-bar__status" id="folderStatus">Editing in-memory \u2014 saves will download files</span>
+    <button class="btn btn--ghost btn--sm" id="pickFolderBtn">Connect /content folder</button>
+    <a class="btn btn--ghost btn--sm" href="../index.html" target="_blank" rel="noopener">View site \u2197</a>
+  </div>
+</header>
+
+<div class="admin-layout">
+  <nav class="admin-tabs" id="tabs" aria-label="Content files"></nav>
+  <main class="admin-panel" id="panel">
+    <p class="admin-empty">Loading content\u2026</p>
+  </main>
+</div>
+
+<div class="admin-toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>

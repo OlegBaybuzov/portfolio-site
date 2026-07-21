@@ -1,0 +1,28 @@
+[
+  {
+    "id": "project-1",
+    "title": "Monovision Studio",
+    "description": "A new project is currently in development. Details will be published here soon.",
+    "image": "assets/images/Desktop.png",
+    "github": "",
+    "demo": "",
+    "stack": ["React", "TBD"],
+    "featured": true,
+    "year": 2026,
+    "status": "In progress",
+    "tags": ["case-study"]
+  },
+  {
+    "id": "project-2",
+    "title": "Future client",
+    "description": "Reserved for an upcoming collaboration. This space will hold real, shipped work.",
+    "image": "",
+    "github": "",
+    "demo": "",
+    "stack": ["JavaScript", "TBD"],
+    "featured": false,
+    "year": 2026,
+    "status": "Reserved",
+    "tags": ["case-study"]
+  }
+]

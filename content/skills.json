@@ -1,0 +1,17 @@
+[
+  {
+    "category": "Frontend",
+    "level": "Advanced",
+    "items": ["HTML", "CSS", "JavaScript", "React"]
+  },
+  {
+    "category": "Backend",
+    "level": "Learning",
+    "items": ["Python", "FastAPI"]
+  },
+  {
+    "category": "Tools",
+    "level": "Daily",
+    "items": ["Git", "GitHub", "VS Code", "Figma"]
+  }
+]
