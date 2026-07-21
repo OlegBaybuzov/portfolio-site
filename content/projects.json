@@ -1,15 +1,15 @@
 [
   {
     "id": "project-1",
-    "title": "Monovision Studio",
-    "description": "A new project is currently in development. Details will be published here soon.",
+    "title": "Your favorite radio",
+    "description": "A landing page for intensive",
     "image": "assets/images/first.png",
     "github": "",
     "demo": "",
-    "stack": ["React", "TBD"],
+    "stack": ["HTML", "CSS"],
     "featured": true,
     "year": 2026,
-    "status": "In progress",
+    "status": "DONE",
     "tags": ["case-study"]
   },
   {
