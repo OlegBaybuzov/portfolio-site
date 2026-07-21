@@ -3,26 +3,26 @@
     "id": "project-1",
     "title": "Your favorite radio",
     "description": "A landing page for intensive",
-    "image": "assets/images/first.png",
+    "image": "assets/images/radio.png",
     "github": "",
     "demo": "",
     "stack": ["HTML", "CSS"],
-    "featured": true,
+    "featured": false,
     "year": 2026,
     "status": "DONE",
-    "tags": ["case-study"]
+    "tags": ["case-study", "Landing page"]
   },
   {
     "id": "project-2",
-    "title": "Future client",
-    "description": "Reserved for an upcoming collaboration. This space will hold real, shipped work.",
-    "image": "",
+    "title": "Monovision Studio",
+    "description": "Website for a photo studio",
+    "image": "assets/images/monovision.png",
     "github": "",
     "demo": "",
-    "stack": ["JavaScript", "TBD"],
+    "stack": ["JavaScript", "Git", "HTML", "CSS"],
     "featured": false,
     "year": 2026,
-    "status": "Reserved",
-    "tags": ["case-study"]
+    "status": "Done",
+    "tags": ["landing-page"]
   }
 ]
