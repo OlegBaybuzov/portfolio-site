@@ -3,7 +3,7 @@
     "id": "project-1",
     "title": "Monovision Studio",
     "description": "A new project is currently in development. Details will be published here soon.",
-    "image": "assets/images/Desktop.png",
+    "image": "assets/images/first.png",
     "github": "",
     "demo": "",
     "stack": ["React", "TBD"],
