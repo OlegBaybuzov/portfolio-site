@@ -214,14 +214,17 @@ export function testimonials({ site, testimonials }) {
   `;
 }
 
-export function contact({ site }) {
+export function contact({ site, settings }) {
+  const endpoint = settings?.contactFormEndpoint?.trim();
+  const formAttrs = endpoint ? `action="${endpoint}" method="POST"` : "";
+
   return `
     <div class="section-inner">
       <p class="eyebrow" data-reveal>${site.sections.contactEyebrow}</p>
       <h2 class="section-title" data-reveal>${site.sections.contactTitle}</h2>
       <p class="contact__subtitle" data-reveal>${site.sections.contactSubtitle}</p>
 
-      <form class="contact-form" id="contactForm" data-reveal novalidate>
+      <form class="contact-form" id="contactForm" data-reveal novalidate ${formAttrs}>
         <input type="hidden" name="_subject" value="New message from ${site.name}'s portfolio">
         <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
 

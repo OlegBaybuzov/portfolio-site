@@ -338,10 +338,16 @@ export function initContactForm(settings) {
       reveal("Message sent. I'll reply soon.");
     } catch (err) {
       console.error(
-        "Contact form submission failed, falling back to mailto:",
+        "Contact form AJAX submit failed, falling back to a plain form POST:",
         err,
       );
-      openMailto(data);
+      // form.submit() bypasses this JS entirely and does a normal browser
+      // POST straight to the endpoint already set as the form's action —
+      // a different, more basic code path than fetch(), so it survives
+      // whatever caused the fetch to fail (CORS quirk, ad blocker, etc).
+      if (submitBtn) submitBtn.textContent = originalLabel;
+      form.submit();
+      return;
     } finally {
       if (submitBtn) submitBtn.textContent = originalLabel;
     }
