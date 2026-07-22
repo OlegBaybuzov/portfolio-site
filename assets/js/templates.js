@@ -216,7 +216,10 @@ export function testimonials({ site, testimonials }) {
 
 export function contact({ site, settings }) {
   const endpoint = settings?.contactFormEndpoint?.trim();
-  const formAttrs = endpoint ? `action="${endpoint}" method="POST"` : "";
+  const base =
+    typeof window !== "undefined"
+      ? window.location.href.split("?")[0].split("#")[0]
+      : "";
 
   return `
     <div class="section-inner">
@@ -224,8 +227,9 @@ export function contact({ site, settings }) {
       <h2 class="section-title" data-reveal>${site.sections.contactTitle}</h2>
       <p class="contact__subtitle" data-reveal>${site.sections.contactSubtitle}</p>
 
-      <form class="contact-form" id="contactForm" data-reveal novalidate ${formAttrs}>
+      <form class="contact-form" id="contactForm" data-reveal action="${endpoint}" method="POST">
         <input type="hidden" name="_subject" value="New message from ${site.name}'s portfolio">
+        <input type="hidden" name="_next" value="${base}?sent=1#contact">
         <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="field">
@@ -244,15 +248,15 @@ export function contact({ site, settings }) {
         <button type="submit" class="btn btn--primary btn--full" data-magnetic>
           <span>Send message</span>
         </button>
-
-        <div class="contact-form__success" id="formSuccess" aria-live="polite">
-          <svg viewBox="0 0 52 52" class="success-check">
-            <circle class="success-check__circle" cx="26" cy="26" r="24" fill="none"/>
-            <path class="success-check__mark" fill="none" d="M14 27l7 7 16-16"/>
-          </svg>
-          <p id="formSuccessText">Message sent. I'll reply soon.</p>
-        </div>
       </form>
+
+      <div class="contact-form__success" id="formSuccess" aria-live="polite">
+        <svg viewBox="0 0 52 52" class="success-check">
+          <circle class="success-check__circle" cx="26" cy="26" r="24" fill="none"/>
+          <path class="success-check__mark" fill="none" d="M14 27l7 7 16-16"/>
+        </svg>
+        <p>Message sent. I'll reply soon.</p>
+      </div>
     </div>
   `;
 }

@@ -10,12 +10,19 @@
  * Nothing content-related lives in this file — if you want to change
  * copy, projects, skills, colors, etc. edit the JSON in /content (or use
  * /admin), not this script.
+ *
+ * IMPORTANT — cache busting: the imports below and the <script> tag in
+ * index.html both end in "?v=2". GitHub Pages' CDN caches .js files for
+ * a while, so after you edit any file under assets/js/, bump that number
+ * (here AND in index.html's script tag) so visitors' browsers fetch the
+ * new version instead of a stale cached one. JSON files in /content
+ * don't need this — they're fetched with cache: 'no-store'.
  * -----------------------------------------------------------------------
  */
 
-import { loadContent } from './content.js';
-import * as tpl from './templates.js';
-import * as ix from './interactions.js';
+import { loadContent } from "./content.js?v=2";
+import * as tpl from "./templates.js?v=2";
+import * as ix from "./interactions.js?v=2";
 
 const SECTION_RENDERERS = {
   nav: tpl.nav,
@@ -48,7 +55,7 @@ function applyTheme(theme = {}) {
   });
   // Derived tokens — editing "accent" alone is enough to keep the glow/spotlight in sync.
   if (theme.accent) {
-    root.setProperty('--accent-dim', hexToRgba(theme.accent, 0.2));
+    root.setProperty("--accent-dim", hexToRgba(theme.accent, 0.2));
   }
 }
 
@@ -58,28 +65,28 @@ function renderSections(content) {
     if (!el) return;
     const html = render(content);
     el.innerHTML = html;
-    el.style.display = html.trim() ? '' : 'none';
+    el.style.display = html.trim() ? "" : "none";
   });
 }
 
 async function main() {
-  ix.setPreloaderStep('connecting\u2026');
+  ix.setPreloaderStep("connecting\u2026");
 
   const content = await loadContent();
 
-
   document.title = content.settings.siteTitle;
   const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.setAttribute('content', content.settings.siteDescription || '');
+  if (metaDesc)
+    metaDesc.setAttribute("content", content.settings.siteDescription || "");
 
-  ix.setPreloaderStep('calibrating type\u2026');
+  ix.setPreloaderStep("calibrating type\u2026");
   applyTheme(content.settings.theme);
   renderSections(content);
 
   // Give the browser a beat to paint the rendered DOM before revealing it.
   await new Promise((r) => setTimeout(r, 150));
 
-  ix.setPreloaderStep('ready.');
+  ix.setPreloaderStep("ready.");
   await ix.fadePreloader();
 
   ix.initLenis();
@@ -99,8 +106,8 @@ main().catch((err) => {
   console.error(err);
   ix.showLoadError(
     "Couldn't load site content. If you opened this file directly from disk, " +
-    'browsers block JSON loading over file://\u2014 serve the folder instead, ' +
-    'e.g. run <code>npx serve</code> in this directory and open the printed ' +
-    'localhost address.'
+      "browsers block JSON loading over file://\u2014 serve the folder instead, " +
+      "e.g. run <code>npx serve</code> in this directory and open the printed " +
+      "localhost address.",
   );
 });

@@ -261,97 +261,24 @@ export function initMagnetic() {
 }
 
 /* ---------- Contact form ----------
- * If settings.contactFormEndpoint is set (e.g. a Formspree endpoint),
- * submissions POST there silently and arrive by email automatically.
- * If it's left empty, the form falls back to opening the visitor's own
- * email app via a mailto: link, pre-filled and addressed to
- * settings.contactEmail — this always works, with zero setup, on any
- * static host. See README.md for how to enable silent sending.
+ * The form itself is plain HTML: action="<formspree endpoint>" method="POST".
+ * No JS is involved in sending it \u2014 the browser posts directly to
+ * Formspree, which redirects back here with ?sent=1 on success. All this
+ * function does is notice that flag and show the success state instead
+ * of a bare query string sitting in the URL.
  */
-export function initContactForm(settings) {
+export function initContactForm() {
   const form = document.getElementById("contactForm");
   const success = document.getElementById("formSuccess");
-  const successText = document.getElementById("formSuccessText");
-  if (!form) return;
+  if (!form || !success) return;
 
-  const endpoint = settings?.contactFormEndpoint?.trim();
-  const contactEmail = (settings?.contactEmail || "").trim();
-
-  function reveal(message) {
-    Array.from(form.elements).forEach((el) => (el.style.display = "none"));
-    if (successText) successText.textContent = message;
+  if (new URLSearchParams(window.location.search).get("sent") === "1") {
+    form.style.display = "none";
     success.classList.add("is-visible");
+    const url = new URL(window.location.href);
+    url.searchParams.delete("sent");
+    window.history.replaceState({}, "", url);
   }
-
-  function openMailto(data) {
-    const subject = encodeURIComponent(
-      `New message from ${data.get("name") || "your portfolio"}`,
-    );
-    const body = encodeURIComponent(
-      `${data.get("message") || ""}\n\n\u2014 ${data.get("name") || ""} (${data.get("email") || ""})`,
-    );
-    const mailtoUrl = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
-
-    // A real <a> click is more reliable than setting window.location.href
-    // directly \u2014 some mobile mail apps (notably iOS Mail) fail to
-    // populate the "To" field when the mailto: navigation is triggered
-    // by a location assignment instead of an anchor click.
-    const link = document.createElement("a");
-    link.href = mailtoUrl;
-    link.style.position = "fixed";
-    link.style.left = "-9999px";
-    document.body.appendChild(link);
-    link.click();
-    setTimeout(() => link.remove(), 500);
-
-    reveal(
-      "Your email app should now be open \u2014 hit send and I'll get it.",
-    );
-  }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-    if (form.querySelector('[name="_gotcha"]').value) return; // honeypot tripped, silently drop
-
-    const data = new FormData(form);
-
-    if (!endpoint) {
-      openMailto(data);
-      return;
-    }
-
-    const submitBtn = form.querySelector('button[type="submit"] span');
-    const originalLabel = submitBtn?.textContent;
-    if (submitBtn) submitBtn.textContent = "Sending\u2026";
-
-    try {
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: data,
-      });
-      if (!res.ok) throw new Error(`Form service responded ${res.status}`);
-      reveal("Message sent. I'll reply soon.");
-    } catch (err) {
-      console.error(
-        "Contact form AJAX submit failed, falling back to a plain form POST:",
-        err,
-      );
-      // form.submit() bypasses this JS entirely and does a normal browser
-      // POST straight to the endpoint already set as the form's action —
-      // a different, more basic code path than fetch(), so it survives
-      // whatever caused the fetch to fail (CORS quirk, ad blocker, etc).
-      if (submitBtn) submitBtn.textContent = originalLabel;
-      form.submit();
-      return;
-    } finally {
-      if (submitBtn) submitBtn.textContent = originalLabel;
-    }
-  });
 }
 
 /* ---------- Back to top ---------- */
