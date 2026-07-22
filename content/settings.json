@@ -1,15 +1,11 @@
 {
-  "siteTitle": "Oleg Baibuzov \u2014 Frontend Developer",
-  "siteDescription": "Oleg Baibuzov \u2014 frontend developer focused on clarity, minimalism and craftsmanship. Based in Kazakhstan, moving to Saint Petersburg.",
-
+  "siteTitle": "Oleg Baibuzov — Frontend Developer",
+  "siteDescription": "Oleg Baibuzov — frontend developer focused on clarity, minimalism and craftsmanship. Based in Kazakhstan, moving to Saint Petersburg.",
   "availability": true,
-
   "timezone": "Asia/Almaty",
   "timezoneLabel": "Almaty",
-
-  "contactEmail": "https://formspree.io/f/xgogzqkl",
-  "contactFormEndpoint": "",
-
+  "contactEmail": "olegfororders02@gmail.com",
+  "contactFormEndpoint": "https://formspree.io/f/xgogzqkl",
   "theme": {
     "bg": "#0a0a0b",
     "surface": "#111113",
