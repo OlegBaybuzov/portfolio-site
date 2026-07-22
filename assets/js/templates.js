@@ -230,7 +230,7 @@ export function contact({ site, settings }) {
       <form class="contact-form" id="contactForm" data-reveal action="${endpoint}" method="POST">
         <input type="hidden" name="_subject" value="New message from ${site.name}'s portfolio">
         <input type="hidden" name="_next" value="${base}?sent=1#contact">
-        <input type="text" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="_gotcha" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="field">
           <input type="text" id="name" name="name" required autocomplete="name" placeholder=" ">
