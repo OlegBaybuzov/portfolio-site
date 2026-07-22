@@ -39,7 +39,7 @@ import { loadContent, CONTENT_FILES } from "../assets/js/content.js";
  * ---------------------------------------------------------------------
  */
 const ADMIN_PASSWORD_HASH =
-  "494a715f7e9b4071aca61bac42ca858a309524e5864f0920030862a4ae7589be"; // default: "changeme123" — change this immediately
+  "e9bc026cda71afd287bea581d99a29298ad73de0831337eb65e2a896f599c2fe"; // default: "changeme123" — change this immediately
 const AUTH_KEY = "ob_admin_authed";
 
 async function sha256Hex(text) {
