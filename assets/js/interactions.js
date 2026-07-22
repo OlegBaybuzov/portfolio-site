@@ -275,7 +275,7 @@ export function initContactForm(settings) {
   if (!form) return;
 
   const endpoint = settings?.contactFormEndpoint?.trim();
-  const contactEmail = settings?.contactEmail || "";
+  const contactEmail = (settings?.contactEmail || "").trim();
 
   function reveal(message) {
     Array.from(form.elements).forEach((el) => (el.style.display = "none"));
@@ -290,7 +290,20 @@ export function initContactForm(settings) {
     const body = encodeURIComponent(
       `${data.get("message") || ""}\n\n\u2014 ${data.get("name") || ""} (${data.get("email") || ""})`,
     );
-    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+    const mailtoUrl = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+
+    // A real <a> click is more reliable than setting window.location.href
+    // directly \u2014 some mobile mail apps (notably iOS Mail) fail to
+    // populate the "To" field when the mailto: navigation is triggered
+    // by a location assignment instead of an anchor click.
+    const link = document.createElement("a");
+    link.href = mailtoUrl;
+    link.style.position = "fixed";
+    link.style.left = "-9999px";
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => link.remove(), 500);
+
     reveal(
       "Your email app should now be open \u2014 hit send and I'll get it.",
     );
